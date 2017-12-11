@@ -7,7 +7,7 @@ import './index.css';
 import { connect } from 'react-redux';
 import { types } from '../app/actionTypes'
 const confirm = Modal.confirm;
-
+let feedbackMsg, feedbackMsgTitle;
 class App extends React.PureComponent {
   // static myMember = {}
   state = {
@@ -68,6 +68,15 @@ class App extends React.PureComponent {
 
   setEmployee = employee => this.setState(() => ({ employee }))
 
+  openNotifications = (type) => {
+    
+    notification[type]({
+      message: `${feedbackMsgTitle}`,
+      description: `${feedbackMsg}`
+    })
+  }
+
+
 
   toggle = () =>
     this.setState(({ visible, employee }) => ({
@@ -76,7 +85,7 @@ class App extends React.PureComponent {
     }))
   // static myStaticMethod = () => {}
   handleAction = ({ key }, index, record) => {
-
+    
     switch (key) {
       case "edit":
         this.setState(({ visible }) => ({
@@ -93,7 +102,10 @@ class App extends React.PureComponent {
           okType: 'danger',
           cancelText: 'No',
           onOk: () => {
-            this.props.deleteEmployee(record)
+            this.props.deleteEmployee(record),
+            feedbackMsgTitle = 'Deleting'
+            feedbackMsg = `${record.name} Deleted Successfully`
+            this.openNotifications('info')
           },
         });
         break
@@ -104,9 +116,15 @@ class App extends React.PureComponent {
 
   submitEmployee = employee => {
     if (employee.id) {
-      this.props.editEmployee(employee)
+      this.props.editEmployee(employee),
+      feedbackMsgTitle = 'Editing'
+      feedbackMsg = `${employee.name} Edited Successfully`
+      this.openNotifications('success')
     } else {
-      this.props.addEmployee(employee)
+      this.props.addEmployee(employee),
+      feedbackMsgTitle = 'Deleting'
+      feedbackMsg = `${employee.name} Added Successfully`
+      this.openNotifications('success')
     }
   }
 
@@ -183,7 +201,7 @@ const mapDispatchToProps = (dispatch) => {
         payload: employeeId
       })
     },
-    deleteEmployee : (employeeId) => {
+    deleteEmployee: (employeeId) => {
       dispatch({
         type: types.DELETE_EMPLOYEE,
         payload: employeeId

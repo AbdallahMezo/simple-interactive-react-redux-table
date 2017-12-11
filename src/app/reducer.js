@@ -13,20 +13,3 @@ export default (state = intialState, { type, payload }) => {
 
 
 
-
-// function sum(...args) {
-//     return args.reduce((res, value) => {
-//         return value + preValue
-//     }, 0)
-// }
-
-// if (!Object.assign) {
-//     Object.assign = function assignAll(...args) {
-//         return  args.reduce((res, obj) => {
-//             return {
-//                 ...res,
-//                 ...obj,
-//             }
-//         }, {})
-//     }
-// }
