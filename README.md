@@ -1,4 +1,4 @@
-# simple-interactive-react-redux-table
+# simple-interactive-react-redux-table using ant-design 
 
 ### How to start:
 #### Install dependancies using 
