@@ -3,8 +3,8 @@
 ### How to start:
 #### Install dependancies using 
 
-- npm install
+- `npm install`
 
 #### Start development enviroment using
 
-- npm start
+- `npm start`
